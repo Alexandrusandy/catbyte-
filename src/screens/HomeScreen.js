@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import List from './componenet/List/List';
 import {useDispatch, useSelector} from 'react-redux';
-import { setUsers} from '../redux/userSlice';
+import {setUsers} from '../redux/userSlice';
 import {Button, View} from 'react-native';
 import ModalScreen from '../componenet/modal/Modal';
 
