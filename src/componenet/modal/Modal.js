@@ -15,15 +15,10 @@ const ModalScreen = ({modalVisible, setModalVisible}) => {
       lastName: lastName,
       age: age,
       image: image,
-      // address: {
-      //   address: '',
-      //   postalCode: '',
-      //   state: '',
-      // },
-      address:""
+      address: '',
     };
     dispatch(addUser(newUser));
-    setModalVisible(false)
+    setModalVisible(false);
   };
   return (
     <Modal animationType="slide" visible={modalVisible}>

@@ -7,7 +7,6 @@ const List = ({users, column}) => {
     return <Text>footer</Text>;
   };
 
-
   return (
     <View>
       <FlatList

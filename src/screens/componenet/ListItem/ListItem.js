@@ -7,8 +7,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {removeUser} from '../../../redux/userSlice';
 
-const ListItem = ({item}) => {
+const ListItem = ({item, index}) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const {image, username, age} = item;
   const backupImage =
@@ -16,19 +19,25 @@ const ListItem = ({item}) => {
   const handlePress = () => {
     navigation.navigate('User', {item: item});
   };
+  const removeItem = () => {
+    dispatch(removeUser(index));
+  };
   return (
     <View>
-      <ImageBackground
-        source={{uri: image || backupImage}}
-        resizeMode="cover"
-        style={styles.image}>
-        <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={handlePress}>
+        <ImageBackground
+          source={{uri: image || backupImage}}
+          resizeMode="cover"
+          style={styles.image}>
+          <TouchableOpacity onPress={removeItem} style={styles.iconAbsolute}>
+            <Text style={styles.removeIcon}>X</Text>
+          </TouchableOpacity>
           <View style={styles.userDetails}>
             <Text style={styles.text}>{username},</Text>
             <Text style={styles.text}>{age}</Text>
           </View>
-        </TouchableOpacity>
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,30 +46,33 @@ const styles = StyleSheet.create({
   container: {},
   image: {
     flex: 1,
-    justifyContent: 'center',
     width: 150,
     height: 150,
     margin: 20,
     backgroundColor: 'white',
     position: 'relative',
+    justifyContent: 'flex-end',
   },
   text: {
     color: 'Black',
     fontSize: 18,
     justifyContent: 'center',
-    backgroundColor: '#fff',
-    opacity: 0.7,
+    backgroundColor: 'rgba(255,248 ,227,0.8)',
     padding: 5,
-    // backgroundColor:'red',
     zIndex: 10,
   },
   userDetails: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end',
-    width: '100%',
-    height: '100%',
-    zIndex: -1,
+  },
+  removeIcon: {
+    color: 'red',
+    fontSize: 25,
+  },
+  iconAbsolute: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
 });
 

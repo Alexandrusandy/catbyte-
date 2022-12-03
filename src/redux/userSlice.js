@@ -14,9 +14,12 @@ export const counterSlice = createSlice({
     addUser(state, action) {
       state.users.unshift(action.payload);
     },
+    removeUser(state, action) {
+      state.users.splice(action.payload, 1);
+    },
   },
 });
 
-export const {setUsers, addUser} = counterSlice.actions;
+export const {setUsers, addUser, removeUser} = counterSlice.actions;
 
 export default counterSlice.reducer;

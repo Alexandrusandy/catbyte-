@@ -1,27 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import List from './componenet/List/List';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUsers} from '../redux/userSlice';
+import {useSelector} from 'react-redux';
 import {Button, View} from 'react-native';
 import ModalScreen from '../componenet/modal/Modal';
+import useFetch from '../hooks/useFetch';
 
 const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const reduxStore = useSelector(state => state.users);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getData([]);
-  }, []);
-
-  const getData = () => {
-    const apiUrl = 'https://dummyjson.com/users';
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(resJson => dispatch(setUsers(resJson.users)))
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
+  useFetch('https://dummyjson.com/users');
 
   return (
     <View>
