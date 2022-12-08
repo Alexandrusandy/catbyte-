@@ -7,7 +7,7 @@ const ModalScreen = ({modalVisible, setModalVisible}) => {
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
   const [image, setImage] = useState('');
- 
+
   let newUser = {
     firstName: firstName,
     lastName: lastName,
