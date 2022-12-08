@@ -1,25 +1,21 @@
 import React, {useState} from 'react';
 import {SafeAreaView, TextInput, Modal, StyleSheet, Button} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {addUser} from '../../redux/userSlice';
+import useAddUser from '../../hooks/useAddJser';
 
 const ModalScreen = ({modalVisible, setModalVisible}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
   const [image, setImage] = useState('');
-  const dispatch = useDispatch();
-  const handlePress = () => {
-    let newUser = {
-      firstName: firstName,
-      lastName: lastName,
-      age: age,
-      image: image,
-      address: '',
-    };
-    dispatch(addUser(newUser));
-    setModalVisible(false);
+ 
+  let newUser = {
+    firstName: firstName,
+    lastName: lastName,
+    age: age,
+    image: image,
+    address: '',
   };
+  const addNewUser = useAddUser(newUser);
   return (
     <Modal animationType="slide" visible={modalVisible}>
       <SafeAreaView>
@@ -47,7 +43,13 @@ const ModalScreen = ({modalVisible, setModalVisible}) => {
           onChangeText={setAge}
           style={styles.contactInput}
         />
-        <Button onPress={handlePress} title="Save User" />
+        <Button
+          onPress={() => {
+            addNewUser();
+            setModalVisible(false);
+          }}
+          title="Save User"
+        />
         <Button
           title="Cancel "
           style={{color: 'red'}}
